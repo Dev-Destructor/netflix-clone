@@ -23,7 +23,7 @@ function Header() {
   }, [])
 
   return (
-    <header className={`${isScrolled && 'bg-[#141414]'}`}>
+    <header className={`${isScrolled && 'bg-primary'}`}>
       <div className="flex items-center space-x-2 md:space-x-10">
         <Image
           src="https://rb.gy/ulxxee"
@@ -42,7 +42,7 @@ function Header() {
 
       <div className="flex items-center space-x-4 text-sm font-light">
         <MagnifyingGlassIcon className="hidden sm:inline h-6 w-6 cursor-pointer" />
-        <p className="hidden lg:inline cursor-pointer">Kids</p>
+        <p className="hidden lg:inline cursor-pointer text-lg font-regular">Kids</p>
         <BellIcon className="h-6 w-6 cursor-pointer" />
         <div>
           <Link href="/account">
