@@ -29,7 +29,7 @@ const Home = ({
 }: // products,
 Props) => {
   return (
-    <div className="relative h-screen bg-gradient-to-b from-gray-900/10 to-[#010511]">
+    <div className="relative h-screen bg-gradient-to-b">
       <Head>
         <title>Netflix</title>
         <meta name="description" content="netflix clone" />
@@ -37,9 +37,9 @@ Props) => {
       </Head>
 
       <Header />
-      <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16">
+      <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-8">
         <Banner netflixOriginals={netflixOriginals} />
-        <section>
+        <section className="md:space-y-24">
           <Rows title="Trending Now" movies={trendingNow} />
           <Rows title="Top Rated" movies={topRated} />
           <Rows title="Action Thrillers" movies={actionMovies} />
