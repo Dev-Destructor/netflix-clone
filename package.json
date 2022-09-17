@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.11",
+    "firebase": "^9.10.0",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.35.0",
     "react-icons": "^4.4.0",
     "tailwind-scrollbar-hide": "^1.1.7"
   },
