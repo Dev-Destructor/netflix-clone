@@ -94,7 +94,7 @@ function login() {
           New to Netflix?{" "}
           <button
             className="text-white hover:underline"
-            onClick={() => setLogin(true)}
+            onClick={() => setLogin(false)}
           >
             Sign Up Now
           </button>
