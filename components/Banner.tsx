@@ -13,9 +13,10 @@ interface Props {
 
 function Banner({ netflixOriginals }: Props) {
   const [movie, setMovie] = useState<Movie | null>(null);
-  const [showModal, setShowModal] = useRecoilState(modalState)
-  const [currentMovie, setCurrentMovie] = useRecoilState(movieState)
+  const [showModal, setShowModal] = useRecoilState(modalState);
+  const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
 
+  // Sets a random banner every time the ui renders
   useEffect(() => {
     setMovie(
       netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)]
@@ -47,7 +48,7 @@ function Banner({ netflixOriginals }: Props) {
         <button
           className="banner-button bg-[gray]/70"
           onClick={() => {
-            setCurrentMovie(movie)
+            setCurrentMovie(movie);
             setShowModal(true);
           }}
         >

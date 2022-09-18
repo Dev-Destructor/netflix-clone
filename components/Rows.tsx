@@ -1,18 +1,19 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { DocumentData } from "firebase/firestore";
 import { useRef, useState } from "react";
 import { Movie } from "../typings";
 import Thumbnail from "./Thumbnail";
 
 interface Props {
   title: string;
-  //   movie: Movie | DocumentData[];
-  movies: Movie[];
+  movies: Movie[] | DocumentData[];
 }
 
 function Rows({ title, movies }: Props) {
   const rowRef = useRef<HTMLDivElement>(null);
   const [isMoved, setIsMoved] = useState(false);
 
+  // Adds a nice carousel functionality with smooth scrolling
   const handleClick = (direction: string) => {
     setIsMoved(true);
     if (rowRef.current) {
