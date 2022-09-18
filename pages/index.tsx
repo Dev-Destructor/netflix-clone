@@ -4,10 +4,15 @@ import { modalState } from "../atoms/modalAtom";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import Modal from "../components/Modal";
+import Plans from "../components/Plans";
 import Rows from "../components/Rows";
 import useAuth from "../hooks/useAuth";
 import { Movie } from "../typings";
 import requests from "../utils/requests";
+import { getProducts, Product } from '@stripe/firestore-stripe-payments'
+import payments from '../lib/stripe'
+import useSubscription from "../hooks/useSubscription";
+import useList from "../hooks/useList";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -18,7 +23,7 @@ interface Props {
   horrorMovies: Movie[];
   romanceMovies: Movie[];
   documentaries: Movie[];
-  // products: Product[]
+  products: Product[]
 }
 
 const Home = ({
@@ -30,12 +35,15 @@ const Home = ({
   romanceMovies,
   topRated,
   trendingNow,
-}: // products,
-Props) => {
-  const { loading } = useAuth()
+  products,
+}: Props) => {
+  const { loading, user } = useAuth()
   const showModal = useRecoilValue(modalState)
+  const subscription = useSubscription(user)
+  const list = useList(user?.uid)
 
-  if (loading) return null
+  if (loading || subscription === null) return null
+  if(!subscription) return <Plans products={products} />
 
   return (
     <div className="relative h-screen bg-gradient-to-b">
@@ -53,7 +61,7 @@ Props) => {
           <Rows title="Top Rated" movies={topRated} />
           <Rows title="Action Thrillers" movies={actionMovies} />
           {/* My List */}
-          {/* {list.length > 0 && <Rows title="My List" movies={list} />} */}
+          {list.length > 0 && <Rows title="My List" movies={list} />}
 
           <Rows title="Comedies" movies={comedyMovies} />
           <Rows title="Scary Movies" movies={horrorMovies} />
@@ -68,13 +76,14 @@ Props) => {
 
 export default Home;
 
+// Fetches the array of movies from tmdb api
 export const getServerSideProps = async () => {
-  // const products = await getProducts(payments, {
-  //   includePrices: true,
-  //   activeOnly: true,
-  // })
-  //   .then((res) => res)
-  //   .catch((error) => console.log(error.message));
+  const products = await getProducts(payments, {
+    includePrices: true,
+    activeOnly: true,
+  })
+    .then((res) => res)
+    .catch((error) => console.log(error.message));
 
   const [
     netflixOriginals,
@@ -106,7 +115,7 @@ export const getServerSideProps = async () => {
       horrorMovies: horrorMovies.results,
       romanceMovies: romanceMovies.results,
       documentaries: documentaries.results,
-      // products,
+      products,
     },
   };
 };
