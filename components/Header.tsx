@@ -3,29 +3,31 @@ import { BellIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
+import BasicMenu from "./BasicMenu";
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { logout } = useAuth()
+  const { logout } = useAuth();
 
+  // Tracks the status of the scroll
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
-        setIsScrolled(true)
+        setIsScrolled(true);
       } else {
-        setIsScrolled(false)
+        setIsScrolled(false);
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <header className={`${isScrolled && 'bg-primary'}`}>
+    <header className={`${isScrolled && "bg-primary"}`}>
       <div className="flex items-center space-x-2 md:space-x-10">
         <Image
           src="https://rb.gy/ulxxee"
@@ -33,6 +35,8 @@ function Header() {
           height={50}
           className="cursor-pointer object-contain"
         />
+
+        <BasicMenu />
         <ul className="hidden space-x-4 md:flex">
           <li className="navLink">Home</li>
           <li className="navLink">TV Shows</li>
@@ -44,17 +48,20 @@ function Header() {
 
       <div className="flex items-center space-x-4 text-sm font-light">
         <MagnifyingGlassIcon className="hidden sm:inline h-6 w-6 cursor-pointer" />
-        <p className="hidden lg:inline cursor-pointer text-lg font-regular">Kids</p>
+        <p className="hidden lg:inline cursor-pointer text-lg font-regular">
+          Kids
+        </p>
         <BellIcon className="h-6 w-6 cursor-pointer" />
         <div>
+          <Link href="/account">
             <Image
-            onClick={logout}
               src="https://rb.gy/g1pwyx"
               height={32}
               width={32}
               alt=""
               className="cursor-pointer rounded"
             />
+          </Link>
         </div>
       </div>
     </header>
